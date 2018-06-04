@@ -31,28 +31,38 @@
     </button>
   </form>
 
-  <table class="table table-dark">
+  <table class="table table-dark" style="margin-top: 5%; text-align: center">
     <thead>
       <tr>
         <th scope="col" colspan="2">Rango de calificación</th>
-        <th scope="col">Nota final</th>
+        <th scope="col" rowspan="2" style="padding-bottom: 5%">Nota final</th>
+      </tr>
+      <tr>
+        <th scope="col">Límite inferior</th>
+        <th scope="col">Límite superior</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="ranges.length <= 0">
+      <tr *ngIf="response.ranges == null || response.ranges <= 0">
         <td colspan="3"><em>No hay rangos de calificaciones</em></td>
       </tr>
-      <tr *ngFor="let range of ranges">
+      <tr *ngFor="let range of response.ranges">
         <td>
-          algo
+          {{ range.lower }}
         </td>
         <td>
-          algo
+          {{ range.upper }}
         </td>
         <td>
-          algo
+          {{ range.name }}
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td>Estado del periodo</td>
+        <td>{{ response.identifier }}</td>
+      </tr>
+    </tfoot>
   </table>
 </div>

@@ -10,6 +10,7 @@ import { SpringService } from './spring.service';
 export class AppComponent {
 
   rangeForm: FormGroup;
+  response: any = {};
 
   constructor(
     private spring: SpringService
@@ -43,6 +44,8 @@ export class AppComponent {
     this.spring.sendData(this.rangeForm.value)
       .subscribe(table => {
         console.log(table);
+        this.response = table;
+        alert(`el estado del periodo es: ${ this.response.identifier }`);
       });
   }
 }
