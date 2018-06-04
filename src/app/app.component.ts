@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { SpringService } from './spring.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,12 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  ranges: Range[] = [];
+
   rangeForm: FormGroup;
 
-  constructor() {
+  constructor(
+    private spring: SpringService
+  ) {
     this.rangeForm = new FormGroup({
       'period': new FormControl('2018'),
       'ranges': new FormArray([
@@ -22,15 +25,6 @@ export class AppComponent {
       ])
     })
   }
-
-  // this.rangeForm = new FormGroup({
-  //   'nombreCompleto': new FormGroup({
-  //     'nombre': new FormControl('Mauricio', Validators.required),
-  //     'apellido': new FormControl('', Validators.required)
-  //   }),
-  //   'correo': new FormControl('', Validators.required)
-  // });
-
 
   addRange() {
     console.log((<FormArray>this.rangeForm.controls['ranges']).controls);
@@ -46,17 +40,9 @@ export class AppComponent {
 
   sendToSpring() {
     console.log(this.rangeForm.value);
-  }
-}
-
-class Range {
-  lower: Number;
-  upper: Number;
-  name: String;
-
-  constructor() {
-    this.lower = null;
-    this.upper = null;
-    this.name = null;
+    this.spring.sendData(this.rangeForm.value)
+      .subscribe(table => {
+        console.log(table);
+      });
   }
 }
