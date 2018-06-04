@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +10,42 @@ export class AppComponent {
   ranges: Range[] = [];
   rangeForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
-    this.rangeForm = this.formBuilder.group(new Range);
+  constructor() {
+    this.rangeForm = new FormGroup({
+      'period': new FormControl('2018'),
+      'ranges': new FormArray([
+        new FormGroup({
+          lower: new FormControl(null, Validators.required),
+          upper: new FormControl(null, Validators.required),
+          name: new FormControl(null, Validators.required)
+        })
+      ])
+    })
   }
+
+  // this.rangeForm = new FormGroup({
+  //   'nombreCompleto': new FormGroup({
+  //     'nombre': new FormControl('Mauricio', Validators.required),
+  //     'apellido': new FormControl('', Validators.required)
+  //   }),
+  //   'correo': new FormControl('', Validators.required)
+  // });
+
 
   addRange() {
-    this.ranges.push(new Range);
+    console.log((<FormArray>this.rangeForm.controls['ranges']).controls);
+    console.log(this.rangeForm.value);
+    (<FormArray>this.rangeForm.controls['ranges']).push(
+      new FormGroup({
+        lower: new FormControl(null, Validators.required),
+        upper: new FormControl(null, Validators.required),
+        name: new FormControl(null, Validators.required)
+      })
+    )
   }
 
-  deleteRange() {
-    this.ranges.pop();
+  sendToSpring() {
+    console.log(this.rangeForm.value);
   }
 }
 
