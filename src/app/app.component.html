@@ -1,20 +1,41 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container" style="margin-top: 2%">
+  <h1>Periodo</h1>
+  <form [formGroup]="rangeForm">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col" colspan="2">Rango de calificación</th>
+          <th scope="col">Nota final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="ranges.length <= 0">
+          <td colspan="3"><em>No hay rangos de calificaciones</em></td>
+        </tr>
+        <tr *ngFor="let range of ranges">
+          <td>
+            <input type="number" formControlName="lower" name="lower" required placeholder="1.00" />
+          </td>
+          <td>
+            <input type="number" formControlName="upper" name="uper" required placeholder="5.00" />
+          </td>
+          <td>
+            <input type="text" formControlName="name" name="name" required placeholder="Excelente" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="addRange()">
+      <i class="fas fa-plus"></i>
+      Agregar un rango
+    </button>
+    <button type="button" class="btn btn-danger btn-lg btn-block" (click)="deleteRange()">
+      <i class="fas fa-times"></i>
+      Eliminar ultimo rango
+    </button>
+    <button [disabled]="!rangeForm.valid" type="button" class="btn btn-success btn-lg btn-block">
+      <i class="fas fa-upload"></i>
+      Enviar periodo
+    </button>
+  </form>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
